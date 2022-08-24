@@ -64,9 +64,3 @@ const recipes = await Astro.glob<Recipe>('./recipes/*.md');
 		</section>
 	</div>
 </Layout>
-
-<style>
-	.recipe-card-grid {
-		@apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-8;
-	}
-</style>
