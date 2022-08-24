@@ -1,0 +1,44 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import '../styles/base.css';
+
+export interface PostContent {
+    title: string;
+    author: string;
+    date: string;
+	summary: string;
+}
+
+const { content } = Astro.props as { content: PostContent };
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{content.title}</title>
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="heading-container">
+				<h1>{ content.title }</h1>
+				<hr>
+				<p>{ content.summary }</p>
+			</div>
+			<article class="markdown content-container">
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

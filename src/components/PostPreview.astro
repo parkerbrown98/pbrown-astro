@@ -1,0 +1,30 @@
+---
+import type { MarkdownInstance } from "astro";
+import moment from "moment";
+
+interface Frontmatter {
+    title: string;
+    url: string;
+    summary: string;
+    date: string;
+}
+
+const timeSince = (dateStr: string) => {
+    return moment(dateStr, "YYYY-MM-DD").fromNow();
+}
+
+const { post } = Astro.props as { post: MarkdownInstance<Frontmatter> };
+---
+
+<article class="space-y-4" aria-label="Blog post preview">
+    <a href={post.frontmatter.url}>
+        <h4 class="font-semibold hover:underline">{ post.frontmatter.title }</h4>
+    </a>
+    <p class="text-gray-600">{ post.frontmatter.summary }</p>
+    <footer class="text-gray-400 flex items-center justify-between">
+        <div aria-label="Time since post created">
+            { timeSince(post.frontmatter.date) }
+        </div>
+        <a href={post.url} class="inline-block sm:hidden lowercase text-gray-500 font-semibold text-sm bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-3 py-1.5 rounded-full transition-colors">read more</a>
+    </footer>
+</article>

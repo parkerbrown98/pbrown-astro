@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import moment from 'moment';
+import RecipeTile from '../components/RecipeTile.astro';
+import PostPreview from '../components/PostPreview.astro';
+
+const timeSince = (dateStr: string) => {
+    return moment(dateStr, "YYYY-MM-DD").fromNow();
+}
+
+const dateDiff = (date1: string, date2: string) => {
+	const momentDate1 = moment(date1, "YYYY-MM-DD");
+	const momentDate2 = moment(date2, "YYYY-MM-DD");
+	return momentDate2.diff(momentDate1);
+}
+
+
+interface Frontmatter {
+    title: string;
+    url: string;
+	summary: string;
+	date: string;
+}
+
+interface Recipe {
+	title: string;
+	summary: string;
+	time: string;
+	imageUrl: string;
+	date: string;
+}
+
+const posts = await Astro.glob<Frontmatter>('./blog/*.md');
+const recipes = await Astro.glob<Recipe>('./recipes/*.md');
+
+---
+
+<Layout title="Root - Parker Brown">
+	<div class="heading-container">
+		<h1>Hi, I'm Parker.</h1>
+		<hr>
+		<p>
+			Welcome to my archive. Here, you will find loads of recipes, photos, videos, and blog posts about super random stuff.
+		</p>
+	</div>
+	<div class="content-container">
+		<section>
+			<h3>Recent Posts</h3>
+			<div class="card-grid mt-8">
+				{ posts.sort((a, b) => dateDiff(a.frontmatter.date, b.frontmatter.date)).slice(0, 4).map(post => (
+					<PostPreview post={post} />
+				)) }
+			</div>
+			<a href="/blog/1" class="mt-8 block sm:inline-block text-center sm:text-left lowercase text-gray-500 font-semibold bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">more posts</a>
+		</section>
+		<section>
+			<h3>Recipes</h3>
+			<div class="recipe-card-grid">
+				{ recipes.sort((a, b) => dateDiff(a.frontmatter.date, b.frontmatter.date)).slice(0, 4).map(recipe => (
+					<RecipeTile recipe={recipe} />
+				))}
+			</div>
+			<a href="/recipes" class="mt-8 block sm:inline-block text-center sm:text-left lowercase text-gray-500 font-semibold bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">more recipes</a>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.recipe-card-grid {
+		@apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-8;
+	}
+</style>

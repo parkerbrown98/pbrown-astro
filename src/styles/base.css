@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-size: clamp(0.94rem, 0.3rem + 1vw, 1.1rem);
+    }
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold;
+}
+
+h1 {
+    @apply text-5xl;
+}
+
+h2 {
+    @apply text-4xl;
+}
+
+h3 {
+    @apply text-3xl;
+}
+
+h4 {
+    @apply text-2xl;
+}
+
+h5 {
+    @apply text-xl;
+}
+
+h6 {
+    @apply text-lg;
+}
+
+br {
+    @apply mt-4 mb-4
+}
+
+body > header,
+body > main,
+body > footer {
+    width: 100%;
+}
+
+body > header {
+    grid-area: header;
+}
+
+body > main {
+    @apply pb-12;
+    grid-area: main;
+}
+
+body > footer {
+    grid-area: footer;
+}
+
+main section:not(:first-of-type) {
+    @apply mt-12
+}
+
+.heading-container {
+    @apply max-w-screen-lg mx-auto px-4 mt-12 sm:mt-24 space-y-8;
+}
+
+.heading-container > h1 {
+    @apply font-bold;
+}
+
+.heading-container > hr {
+    @apply w-16;
+}
+
+.heading-container > p {
+    @apply text-3xl text-gray-600 font-extralight;
+}
+
+.content-container {
+    @apply max-w-screen-lg mx-auto px-4 mt-12 sm:mt-24;
+}
+
+.markdown h2:not(:first-of-type) {
+    @apply mt-8;
+}
+
+.markdown :is(h3, h4, h5, h6) {
+    @apply py-4;
+}
+
+.markdown a {
+    @apply text-blue-400;
+}
+
+.markdown :is(p, li, a) {
+    @apply text-lg text-gray-500 font-light;
+}
+
+.markdown :is(p, ul, ol) {
+    @apply mt-4;
+}
+
+.markdown :is(ul, ol) {
+    @apply list-disc pl-6;
+}
+
+.markdown ol {
+    list-style-type: decimal;
+}
+
+.markdown pre {
+    @apply p-4 rounded text-sm;
+}
+
+.markdown code:not(pre > code) {
+    @apply bg-gray-200 px-1 rounded;
+}
+
+.card-grid {
+    @apply grid gap-8;
+    grid-template-columns: repeat(auto-fit, minmax(40ch, 1fr));
+}

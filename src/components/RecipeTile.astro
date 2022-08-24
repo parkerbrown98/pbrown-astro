@@ -1,0 +1,40 @@
+---
+import type { MarkdownInstance } from "astro";
+
+interface Recipe {
+	title: string;
+	summary: string;
+	time: string;
+	imageUrl: string;
+	date: string;
+    url: string;
+}
+
+const { recipe } = Astro.props as { recipe: MarkdownInstance<Recipe> };
+---
+
+<a href={recipe.frontmatter.url}>
+    <article class="overflow-hidden relative pb-[140%] shadow-md rounded">
+        <img src={recipe.frontmatter.imageUrl} alt={`Image of ${recipe.frontmatter.title}`} class="absolute top-0 left-0 w-full h-full object-cover -z-10" />
+        <h4 class="absolute bottom-0 left-0 text-xl p-2 text-gray-100 font-semibold">{ recipe.frontmatter.title }</h4>
+    </article>
+</a>
+
+<style>
+    article {
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.3) 35%,
+            rgba(0, 0, 0, 0)
+        )
+    }
+
+    a {
+        @apply rounded transition-shadow;
+    }
+
+    a:hover {
+        @apply ring-2 ring-gray-300;
+    }
+</style>

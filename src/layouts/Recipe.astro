@@ -1,0 +1,92 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import '../styles/base.css';
+
+export interface RecipeContent {
+    title: string;
+	summary: string;
+    time: string;
+    imageUrl: string;
+}
+
+const { content } = Astro.props as { content: RecipeContent };
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{content.title}</title>
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Header />
+		<main>
+            <div class="content-container">
+                <div class="hero">
+                    <img src={content.imageUrl} alt={`Photo of ${content.title}`} class="absolute top-0 left-0 w-full h-full object-cover -z-10">
+                    <div>
+                        <div>
+                        </div>
+                        <div>
+                            <span>{ content.time }</span>
+                            <h1>{ content.title }</h1>
+                            <p>{ content.summary }</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="markdown content-container">
+				<slot />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+    .hero {
+        @apply p-4 h-[40vh] relative overflow-hidden rounded;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.3) 40%,
+            rgba(0, 0, 0, 0)
+        )
+    }
+
+    .hero > div span {
+        @apply text-gray-500 font-semibold bg-gray-100 lowercase text-sm px-4 py-1 rounded-full;
+    }
+
+    .hero > div {
+        @apply absolute bottom-0 left-0 p-4 text-gray-100;
+    }
+
+    .hero > div h1 {
+        @apply text-4xl mt-4;
+    }
+
+    .hero > div p {
+        @apply mt-1 text-lg font-light;
+    }
+
+    @screen sm {
+        .hero {
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.2) 25%,
+                rgba(0, 0, 0, 0)
+            )
+        }
+    }
+</style>

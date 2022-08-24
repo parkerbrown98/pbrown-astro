@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { MarkdownInstance, Page, PaginateFunction, Props } from 'astro';
+import PostPreview from '../../components/PostPreview.astro';
+import moment from 'moment';
+
+interface Frontmatter {
+    title: string;
+    url: string;
+    summary: string;
+    date: string;
+}
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+    const dateDiff = (date1: string, date2: string) => {
+        const momentDate1 = moment(date1, "YYYY-MM-DD");
+        const momentDate2 = moment(date2, "YYYY-MM-DD");
+        return momentDate2.diff(momentDate1);
+    }  
+
+    const posts = await Astro.glob<Frontmatter>('./*.md');
+    const sortedPosts = posts.sort((a, b) => dateDiff(a.frontmatter.date, b.frontmatter.date));
+
+    return paginate(sortedPosts, { pageSize: 6 });
+}
+
+const { page } = Astro.props as Props & { page: Page<MarkdownInstance<Frontmatter>> };
+---
+
+<Layout title="Blog - Parker Brown">
+    <div class="heading-container">
+        <h1>Blog Posts</h1>
+        <hr>
+        <p>Random thoughts, guides, and nerdy programming stuff.</p>
+    </div>
+    <div class="content-container">
+        <section>
+            <div class="card-grid">
+                { page.data.map(post => <PostPreview post={post} />) }
+            </div>
+            <div class="flex items-center justify-between mt-8">
+                <div class="text-gray-600 font-semibold">Page { page.currentPage } of { page.lastPage }</div>
+                <div class="flex gap-4">
+                    { page.url.prev && (
+                        <a href={page.url.prev} class="inline-block lowercase text-gray-500 font-semibold text-sm bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">prev</a>
+                    )}
+                    { page.url.next && (
+                        <a href={page.url.next} class="inline-block lowercase text-gray-500 font-semibold text-sm bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">next</a>
+                    )}
+                </div>
+            </div>
+        </section>
+    </div>
+</Layout>
