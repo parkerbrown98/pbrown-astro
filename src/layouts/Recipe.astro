@@ -30,8 +30,8 @@ const { content } = Astro.props as { content: RecipeContent };
 	<body>
 		<Header />
 		<main>
-            <div class="content-container">
-                <div class="hero">
+            <div class="mx-auto max-w-screen-lg px-4">
+                <section class="hero">
                     <img src={content.imageUrl} alt={`Photo of ${content.title}`} class="absolute top-0 left-0 w-full h-full object-cover -z-10">
                     <div>
                         <div>
@@ -42,11 +42,13 @@ const { content } = Astro.props as { content: RecipeContent };
                             <p>{ content.summary }</p>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-			<div class="markdown content-container">
-				<slot />
-			</div>
+            <div class="content-container">
+                <section class="markdown">
+                    <slot />
+                </section>
+            </div>
 		</main>
 		<Footer />
 	</body>
