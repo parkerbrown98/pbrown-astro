@@ -67,7 +67,7 @@ body > header {
 }
 
 body > main {
-    @apply pb-12;
+    @apply pb-12 sm:pb-24;
     grid-area: main;
 }
 
@@ -80,7 +80,7 @@ main section:not(:first-of-type) {
 }
 
 .heading-container {
-    @apply max-w-screen-lg mx-auto px-4 mt-12 sm:mt-24 space-y-8;
+    @apply max-w-screen-lg mx-auto px-4 mt-8 sm:mt-20 space-y-8;
 }
 
 .heading-container > h1 {
