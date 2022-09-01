@@ -107,16 +107,21 @@ main section:not(:first-of-type) {
     @apply py-4;
 }
 
-.markdown a {
-    @apply text-blue-400;
-}
-
 .markdown :is(p, li, a) {
     @apply text-lg text-gray-500 font-light;
 }
 
+.markdown a {
+    @apply text-blue-400;
+}
+
+
 .markdown :is(p, ul, ol) {
     @apply mt-4;
+}
+
+.markdown li > p {
+    @apply mt-0;
 }
 
 .markdown :is(ul, ol) {
@@ -141,7 +146,7 @@ main section:not(:first-of-type) {
 }
 
 .recipe-card-grid {
-    @apply grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8;
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-8;
 }
 
 .recipe-card-grid a {
@@ -150,15 +155,15 @@ main section:not(:first-of-type) {
 
 @screen sm {
     .recipe-card-grid a:nth-child(1) {
-        @apply col-start-1 col-end-5 row-span-1;
+        @apply col-span-2 row-span-1;
     }
     
     .recipe-card-grid a:nth-child(2) {
-        @apply col-start-1 col-end-3;
+        @apply col-span-1;
     }
 
     .recipe-card-grid a:nth-child(3) {
-        @apply col-start-3 col-end-5;
+        @apply col-span-1;
     }
 }
 
