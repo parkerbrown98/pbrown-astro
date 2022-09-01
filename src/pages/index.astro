@@ -56,11 +56,11 @@ const recipes = await Astro.glob<Recipe>('./recipes/*.md');
 		<section>
 			<h3>Recipes</h3>
 			<div class="recipe-card-grid">
-				{ recipes.sort((a, b) => dateDiff(a.frontmatter.date, b.frontmatter.date)).slice(0, 4).map(recipe => (
+				{ recipes.sort((a, b) => dateDiff(a.frontmatter.date, b.frontmatter.date)).slice(0, 3).map(recipe => (
 					<RecipeTile recipe={recipe} />
 				))}
 			</div>
-			<a href="/recipes" class="mt-8 block sm:inline-block text-center sm:text-left lowercase text-gray-500 font-semibold bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">more recipes</a>
+			<a href="/recipes/1" class="mt-8 block sm:inline-block text-center sm:text-left lowercase text-gray-500 font-semibold bg-gray-100 hover:bg-gray-200/75 hover:text-gray-600 px-4 py-2 rounded-full transition-colors">more recipes</a>
 		</section>
 	</div>
 </Layout>

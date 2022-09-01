@@ -10,12 +10,15 @@ interface Recipe {
     url: string;
 }
 
-const { recipe } = Astro.props as { recipe: MarkdownInstance<Recipe> };
+const { recipe, showSummary } = Astro.props as { recipe: MarkdownInstance<Recipe>, showSummary?: boolean };
 ---
 
 <a href={recipe.frontmatter.url} class="overflow-hidden relative pb-[65%] shadow-md rounded">
     <img src={recipe.frontmatter.imageUrl} alt={`Image of ${recipe.frontmatter.title}`} class="absolute top-0 left-0 w-full h-full object-cover -z-10" />
-    <h4 class="absolute bottom-0 left-0 text-2xl p-2 text-gray-100 font-semibold">{ recipe.frontmatter.title }</h4>
+    <div class="absolute bottom-0 left-0 p-2">
+        <h4 class="text-2xl text-gray-100 font-semibold">{ recipe.frontmatter.title }</h4>
+        { showSummary && <p class="mt-1 text-gray-200">{ recipe.frontmatter.summary }</p> }
+    </div>
 </a>
 
 <style>
