@@ -28,7 +28,7 @@ I spent countless hours hosting game servers, building communities, and designin
 
 - Heroku
 
-- Amazon AWS
+- AWS
 
 - Semantic HTML5
 
