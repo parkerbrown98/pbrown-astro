@@ -22,6 +22,8 @@ const { content } = Astro.props as { content: RecipeContent };
 		<meta name="generator" content={Astro.generator} />
 		<title>{content.title}</title>
 
+        <meta name="description" content={content.summary}>
+
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
