@@ -13,7 +13,7 @@ interface Recipe {
 const { recipe, showSummary } = Astro.props as { recipe: MarkdownInstance<Recipe>, showSummary?: boolean };
 ---
 
-<a href={recipe.frontmatter.url} class="overflow-hidden relative pb-[65%] shadow-md rounded">
+<a href={recipe.frontmatter.url} class="overflow-hidden relative pb-[65%] shadow-md rounded hover:ring-2 ring-black ring-offset-2">
     <img src={recipe.frontmatter.imageUrl} alt={`Image of ${recipe.frontmatter.title}`} class="absolute top-0 left-0 w-full h-full object-cover -z-10" />
     <div class="absolute bottom-0 left-0 p-2">
         <h4 class="text-2xl text-gray-100 font-semibold">{ recipe.frontmatter.title }</h4>
@@ -30,9 +30,5 @@ const { recipe, showSummary } = Astro.props as { recipe: MarkdownInstance<Recipe
             rgba(0, 0, 0, 0.3) 35%,
             rgba(0, 0, 0, 0)
         )
-    }
-
-    a:hover {
-        @apply ring-2 ring-gray-300;
     }
 </style>
